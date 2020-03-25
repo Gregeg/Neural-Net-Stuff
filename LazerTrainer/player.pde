@@ -24,7 +24,7 @@ class player {
       //  dead = true;
       //}
       for (int i = 0; i < lasers.size(); i++) {
-        if (pow(lasers.get(i).pos.x-pos.x, 2)+pow(lasers.get(i).pos.y-pos.y, 2)<10) {
+        if (pow(lasers.get(i).pos.x-pos.x, 2)+pow(lasers.get(i).pos.y-pos.y, 2)<25) {
           dead=true;
         }
       }
