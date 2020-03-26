@@ -1,4 +1,4 @@
-float learningRate = .01;
+float learningRate = .001;
 float activeFunc(float in){return (float)Math.atan(in);}
 class Neuron{ 
   float val, da;
@@ -52,8 +52,8 @@ class Network{
   Network(ArrayList<float[][]> weights){    // first weights are for starting neurons, so they are ignored
     for(int i = 0; i < weights.size(); i++){
       float[][] w = weights.get(i);
-      Neuron[] n = neurons.get(i);
-      neurons.add(new Neuron[w.length]);
+      Neuron[] n = new Neuron[w.length];
+      neurons.add(n);
       for(int j = 0; j < w.length; j++)
         n[j] = new Neuron(w[j], j);
     }
@@ -65,7 +65,7 @@ class Network{
     for(int i = 0; i < neurons.size()-1; i++){
       Neuron[] ns = neurons.get(i);
       for(int j = 0; j < ns.length; j++)
-        ns[j].calcNextVal(neurons.get(i+1), (i==0? in[j]: 0));
+        ns[j].calcNextVal(neurons.get(i+1), (i==0? in[j]: 1));
     }
     Neuron[] lastNs = neurons.get(neurons.size()-1);
     float[] out = new float[lastNs.length];
@@ -81,7 +81,7 @@ class Network{
     for(int i = neurons.size()-1; i > 0; i--){
       n = neurons.get(i);
       for(int j = 0; j < n.length; j++)
-        n[j].back(i, learningRate); //<>//
+        n[j].back(i, learningRate);
     }
   }
   // returns cost value (error)
@@ -96,4 +96,14 @@ class Network{
     return e;
   }
   Neuron[] getLayer(int l){return neurons.get(l);}
+  ArrayList<float[][]> getWeights(){
+    ArrayList<float[][]> out = new ArrayList<float[][]>();
+    for(int i = 0; i < neurons.size(); i++){
+      float[][] l = new float[neurons.get(i).length][neurons.get(i)[0].w.length];
+      for(int j = 0; j < l.length; j++)
+        l[j] = neurons.get(i)[j].w;
+      out.add(l);
+    }
+    return out;
+  }
 }
