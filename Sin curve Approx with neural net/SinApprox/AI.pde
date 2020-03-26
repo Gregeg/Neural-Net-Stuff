@@ -1,4 +1,4 @@
-float learningRate = .001;
+float learningRate = .002;
 float activeFunc(float in){return (float)Math.atan(in);}
 class Neuron{ 
   float val, da;

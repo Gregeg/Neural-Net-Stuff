@@ -2,13 +2,13 @@ import java.util.function.Function;
 Network net;
 boolean readFile = false;
 ArrayList<float[][]> w;
-float func(float n){return (float)Math.sin(n);} //  change function here
+float func(float n){return (float)Math.sin(4*n);} //  change function here
 void setup() {
   size(600,600);
   if(readFile && new File(dataPath("") + "/weights").exists())
     net = new Network(readFileWeights());
   else{
-    int[] layers = {1, 5, 10, 10, 5, 1};   // change layers here
+    int[] layers = {1, 5, 10, 30, 10, 5, 1};   // change layers here
     net = new Network(layers);
   }
   w = net.getWeights();
