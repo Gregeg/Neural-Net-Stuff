@@ -22,7 +22,7 @@ class Neuron{
     Neuron[] prev = net.getLayer(layer-1);
     for(int i = 0; i < prev.length; i++){
       float act = prev[i].getActVal();
-      float v = da/(1+w[i]*w[i]*act*act);   // g'(z) (da/dz)
+      float v = da/(1+w[i]*w[i]*act*act);   // g'(z) (da/dz) (a is activation function)
       float dw = v*act;   // da/dw
       prev[i].addDA(v*w[i]);  // da(this layer)/da(lower layer)
       w[i] -= c*dw; // linearization
